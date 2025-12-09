@@ -25,8 +25,13 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ sectors, onUpdate }) => {
     }, []);
 
     const saveTemplatesToStorage = (newTemplates: Template[]) => {
-        setTemplates(newTemplates);
-        localStorage.setItem('roulette_templates', JSON.stringify(newTemplates));
+        try {
+            localStorage.setItem('roulette_templates', JSON.stringify(newTemplates));
+            setTemplates(newTemplates);
+        } catch (e) {
+            console.error("Storage failed", e);
+            alert("Storage full! Unable to save template. Please delete old templates or use smaller images.");
+        }
     };
 
     const handleSaveTemplate = () => {
@@ -78,14 +83,39 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ sectors, onUpdate }) => {
 
     const handleImageUpload = (id: string, file: File) => {
         const reader = new FileReader();
-        reader.onloadend = () => {
-            const result = reader.result;
-            if (typeof result === 'string') {
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const MAX_SIZE = 300; // Limit size to save storage
+                let width = img.width;
+                let height = img.height;
+
+                if (width > height) {
+                    if (width > MAX_SIZE) {
+                        height *= MAX_SIZE / width;
+                        width = MAX_SIZE;
+                    }
+                } else {
+                    if (height > MAX_SIZE) {
+                        width *= MAX_SIZE / height;
+                        height = MAX_SIZE;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx?.drawImage(img, 0, 0, width, height);
+
+                // Compress nicely
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+
                 const updatedSectors = sectors.map(s => {
                     if (s.id === id) {
                         return {
                             ...s,
-                            value: result,
+                            value: dataUrl,
                             type: 'image' as SectorType,
                             imageScale: s.imageScale ?? 1.0,
                             imageX: s.imageX ?? 0,
@@ -96,7 +126,8 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ sectors, onUpdate }) => {
                     return s;
                 });
                 onUpdate(updatedSectors);
-            }
+            };
+            img.src = event.target?.result as string;
         };
         reader.readAsDataURL(file);
     };
