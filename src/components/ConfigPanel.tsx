@@ -102,7 +102,7 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ sectors, onUpdate }) => {
     };
 
     return (
-        <div className="bg-white p-4 rounded-lg shadow-none md:shadow-md w-full flex flex-col gap-6 md:max-h-[100vh]">
+        <div className="bg-white p-4 rounded-lg shadow-none md:shadow-md w-full flex flex-col gap-6">
             {/* Template Section */}
             <div className="border-b pb-4">
                 <h3 className="font-bold text-lg mb-2 text-gray-700">Templates</h3>
