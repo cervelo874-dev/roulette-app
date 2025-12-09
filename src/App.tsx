@@ -20,14 +20,14 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col-reverse md:flex-row font-sans">
+    <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row font-sans">
       {/* Sidebar / Config Panel */}
-      <aside className="w-full md:w-96 border-r border-gray-200 md:h-screen overflow-y-auto flex-shrink-0 bg-white z-20">
+      <aside className="order-2 md:order-1 w-full md:w-96 border-r border-gray-200 md:h-screen overflow-y-auto flex-shrink-0 bg-white z-20 pb-10 md:pb-0">
         <ConfigPanel sectors={sectors} onUpdate={setSectors} />
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col items-center justify-center p-4 relative bg-slate-50 min-h-[50vh] md:h-screen overflow-hidden">
+      <main className="order-1 md:order-2 flex-1 flex flex-col items-center justify-center p-4 relative bg-slate-50 min-h-[50vh] md:h-screen md:overflow-hidden">
 
         <div className="mb-8">
           <RouletteCanvas
