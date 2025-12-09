@@ -6,19 +6,17 @@ import { DEFAULT_SECTORS, type Sector } from './types';
 function App() {
   const [sectors, setSectors] = useState<Sector[]>(DEFAULT_SECTORS);
   const [spinning, setSpinning] = useState(false);
-  const [winner, setWinner] = useState<Sector | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const handleStart = () => {
     if (sectors.length === 0) return;
-    setWinner(null);
     setSpinning(true);
     // Optionally auto-expand? Let's leave it manual for now.
   };
 
   const handleFinished = (winningSector: Sector | null) => {
     setSpinning(false);
-    setWinner(winningSector);
+    console.log('Winner:', winningSector); // Optional logging or tracking
   };
 
   return (
@@ -78,17 +76,7 @@ function App() {
             </button>
           </div>
 
-          {winner && !spinning && (
-            <div className="pointer-events-auto mt-2 md:mt-8 p-4 md:p-6 bg-white rounded-xl shadow-2xl text-center animate-bounce-short border-2 border-yellow-400 min-w-[200px] max-w-xs md:max-w-md mx-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:static md:transform-none z-20">
-              <p className="text-gray-500 uppercase tracking-widest text-xs font-bold mb-1">Result</p>
-              <div className="text-2xl md:text-3xl font-extrabold text-gray-800 break-words">
-                {winner.type === 'text' ? winner.value : 'Image Selected!'}
-              </div>
-              {winner.type === 'image' && winner.value && (
-                <img src={winner.value} alt="Winner" className="w-24 h-24 md:w-32 md:h-32 object-contain mt-2 mx-auto rounded-lg border" />
-              )}
-            </div>
-          )}
+          {/* Result popup removed as per user request */}
         </div>
 
         {/* Background Decoration */}
