@@ -58,7 +58,7 @@ function App() {
               <div className="text-3xl font-extrabold text-gray-800">
                 {winner.type === 'text' ? winner.value : 'Image Selected!'}
               </div>
-              {winner.type === 'image' && (
+              {winner.type === 'image' && winner.value && (
                 <img src={winner.value} alt="Winner" className="w-32 h-32 object-contain mt-2 mx-auto rounded-lg border" />
               )}
             </div>

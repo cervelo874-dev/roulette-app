@@ -5,6 +5,11 @@
 html,
 body,
 #root {
-  min-height: 100%;
+  min-height: 100vh;
   margin: 0;
+  padding: 0;
+  overflow-y: auto !important;
+  /* Force scroll */
+  -webkit-overflow-scrolling: touch;
+  /* Smooth scroll on iOS */
 }
