@@ -211,7 +211,7 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ sectors, onUpdate }) => {
                                                 <div className="flex items-center gap-2">
                                                     <span className="w-8 shrink-0">Scale</span>
                                                     <input
-                                                        type="range" min="0.5" max="2.0" step="0.1"
+                                                        type="range" min="0.1" max="3.0" step="0.1"
                                                         value={sector.imageScale ?? 1.0}
                                                         onChange={(e) => updateSector(sector.id, 'imageScale', parseFloat(e.target.value))}
                                                         className="flex-1"
@@ -220,7 +220,7 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ sectors, onUpdate }) => {
                                                 <div className="flex items-center gap-2">
                                                     <span className="w-8 shrink-0">X</span>
                                                     <input
-                                                        type="range" min="-50" max="50" step="1"
+                                                        type="range" min="-150" max="150" step="1"
                                                         value={sector.imageX ?? 0}
                                                         onChange={(e) => updateSector(sector.id, 'imageX', parseFloat(e.target.value))}
                                                         className="flex-1"
@@ -229,7 +229,7 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ sectors, onUpdate }) => {
                                                 <div className="flex items-center gap-2">
                                                     <span className="w-8 shrink-0">Y</span>
                                                     <input
-                                                        type="range" min="-50" max="50" step="1"
+                                                        type="range" min="-150" max="150" step="1"
                                                         value={sector.imageY ?? 0}
                                                         onChange={(e) => updateSector(sector.id, 'imageY', parseFloat(e.target.value))}
                                                         className="flex-1"
